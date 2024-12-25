@@ -86,7 +86,7 @@ The project uses five main tables:
 The Apple Retail Sales Data Analysis project showcases the power and versatility of SQL in deriving actionable insights from vast and complex datasets. By analyzing over 1 million rows of data, we have:
 
 Enhanced Understanding: Explored sales patterns, warranty claims, and product performance across global Apple stores.
-**Key Insights:** Identified top-performing stores, best-selling days, and product categories with the highest warranty claims.
-**Advanced Techniques:** Applied ranking, window functions, and subqueries to answer challenging business questions, demonstrating proficiency in handling real-world SQL scenarios.
-**Strategic Recommendations:** Provided insights into customer preferences, product lifecycle performance, and warranty claim trends, aiding strategic decision-making.
+- **Key Insights:** Identified top-performing stores, best-selling days, and product categories with the highest warranty claims.
+- **Advanced Techniques:** Applied ranking, window functions, and subqueries to answer challenging business questions, demonstrating proficiency in handling real-world SQL scenarios.
+- **Strategic Recommendations:** Provided insights into customer preferences, product lifecycle performance, and warranty claim trends, aiding strategic decision-making.
 This project not only highlights the analytical potential of SQL but also underscores its critical role in supporting data-driven business strategies in the retail domain.
