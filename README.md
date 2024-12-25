@@ -1,1 +1,2 @@
-# Apple-Sales-Analysis-using-SQL
+# Apple Sales Analysis using SQL
+
