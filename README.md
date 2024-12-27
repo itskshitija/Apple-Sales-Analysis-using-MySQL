@@ -1,7 +1,5 @@
 # SQL Project - Apple Retail Sales Data (Analyzing millions of rows)
 
-# ![Apple Logo](https://github.com/najirh/Apple-Retail-Sales-SQL-Project---Analyzing-Millions-of-Sales-Rows/blob/main/Apple_Changsha_RetailTeamMembers_09012021_big.jpg.slideshow-xlarge_2x.jpg)
-
 ## Project Overview
 
 This project is designed to showcase advanced SQL querying techniques through the analysis of over 1 million rows of Apple retail sales data. The dataset includes information about products, stores, sales transactions, and warranty claims across various Apple retail locations globally. By tackling a variety of questions, from basic to complex, you'll demonstrate your ability to write sophisticated SQL queries that extract valuable insights from large datasets.
@@ -45,8 +43,6 @@ The project uses five main tables:
    - `repair_status`: Status of the warranty claim (e.g., Paid Repaired, Warranty Void).
 
 ## Business Questions
-
-### Easy to Medium (10 Questions)
 
 1. Find the number of stores in each country.
 ```
