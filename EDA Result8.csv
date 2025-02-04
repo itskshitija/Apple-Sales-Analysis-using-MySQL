@@ -1,0 +1,11 @@
+category_id,category_name,average_price_of_products
+CAT-1,Laptop,1511.5000
+CAT-7,Desktop,1199.0000
+CAT-4,Smartphone,889.4348
+CAT-3,Tablet,656.5000
+CAT-5,Wearable,362.3333
+CAT-2,Audio,259.0000
+CAT-6,"Streaming Device",179.0000
+CAT-8,"Subscription Service",149.5000
+CAT-9,"Smart Speaker",99.0000
+CAT-10,Accessory,29.0000

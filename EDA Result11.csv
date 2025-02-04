@@ -1,0 +1,21 @@
+store_id,store_name,best_selling_day,total_quantity_sold
+ST-15,"Apple Chinook Centre",Saturday,811
+ST-16,"Apple Rideau Centre",Monday,1032
+ST-17,"Apple West Edmonton Mall",Sunday,978
+ST-18,"Apple CF Sherway Gardens",Sunday,1007
+ST-19,"Apple Marunouchi",Monday,1029
+ST-20,"Apple Shibuya",Sunday,1000
+ST-21,"Apple Orchard Road",Friday,1362
+ST-22,"Apple Regent Street",Wednesday,1371
+ST-23,"Apple Covent Garden",Monday,1368
+ST-24,"Apple Bluewater",Tuesday,1383
+ST-25,"Apple Munich",Wednesday,1354
+ST-26,"Apple KurfÃ¼rstendamm",Sunday,922
+ST-27,"Apple Amsterdam",Sunday,947
+ST-28,"Apple Champs-Ã‰lysÃ©es",Friday,884
+ST-29,"Apple Lyon",Tuesday,896
+ST-30,"Apple Milan",Friday,882
+ST-31,"Apple Dubai Mall",Sunday,764
+ST-32,"Apple Mall of the Emirates",Sunday,9
+ST-33,"Apple Barcelona",Wednesday,6
+ST-33,"Apple Barcelona",Monday,6
