@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is designed to showcase advanced SQL querying techniques through the analysis of over 1 million rows of Apple retail sales data. The dataset includes information about products, stores, sales transactions, and warranty claims across various Apple retail locations globally. By tackling a variety of questions, from basic to complex, you'll demonstrate your ability to write sophisticated SQL queries that extract valuable insights from large datasets.
+This project is designed to showcase advanced SQL querying techniques by analyzing over 1 million rows of Apple retail sales data. The dataset includes information about products, stores, sales transactions, and warranty claims across various Apple retail locations globally. By tackling a variety of questions, from basic to complex, you'll demonstrate your ability to write sophisticated SQL queries that extract valuable insights from large datasets.
 
 ## Entity Relationship Diagram (ERD)
 
@@ -77,12 +77,12 @@ WHERE YEAR(sale_date) = 2023 AND MONTH(sale_date) = 12;
 ```
 SELECT COUNT(*) FROM stores
 WHERE store_id NOT IN (
-						SELECT 
-							DISTINCT store_id
-						FROM sales as s
-						RIGHT JOIN warranty as w
-						ON s.sale_id = w.sale_id
-						);
+SELECT 
+DISTINCT store_id
+FROM sales as s
+RIGHT JOIN warranty as w
+ON s.sale_id = w.sale_id
+);
 ```
 ![image](https://github.com/user-attachments/assets/be2781be-7729-4403-a284-7b764a464a30)
 
@@ -132,29 +132,92 @@ ORDER BY average_price_of_products DESC;
 SELECT count(*) AS warranty_claim from warranty 
 WHERE YEAR(claim_date) = 2020;
 ```
-![image](https://github.com/user-attachments/assets/ade5c50d-ba5a-49b9-8b79-476759ac8bd8)
+![image](https://github.com/user-attachments/assets/c475b890-907c-437b-94db-568f4b03fc17)
+
 
 ### 10. Identify each store and best selling day based on highest qty sold
 ```
+WITH RankedSales AS (
+    SELECT 
+        st.store_id,
+        st.store_name, 
+        DAYNAME(s.sale_date) AS day_name,
+        SUM(s.quantity) AS total_quantity_sold,
+        RANK() OVER (PARTITION BY st.store_id ORDER BY SUM(s.quantity) DESC) AS rank_val
+    FROM stores AS st
+    INNER JOIN sales AS s ON st.store_id = s.store_id
+    GROUP BY st.store_id, st.store_name, DAYNAME(s.sale_date)
+)
+SELECT 
+    store_id,
+    store_name,
+    day_name AS best_selling_day,
+    total_quantity_sold
+FROM RankedSales
+WHERE rank_val = 1;
+```
+![image](https://github.com/user-attachments/assets/c74b9c48-4aeb-40e4-ad7e-fb42c77ffa78)
 
-### 11. 
+### 11.How many warranty claims were filed within 180 days of a product sale?
+```
+SELECT 
+    COUNT(*)
+FROM warranty AS w
+INNER JOIN sales AS s
+ON s.sale_id = w.sale_id
+WHERE DATEDIFF(w.claim_date, s.sale_date) <= 180;
+```
+![image](https://github.com/user-attachments/assets/564f0570-44dc-4bf8-b6fe-389dd3e06b1e)
 
-### Medium to Hard (5 Questions)
+### 12. How many warranty claims have been filed for products launched in the last two years?
+```
+SELECT 
+    p.product_name,
+    COUNT(w.claim_id) AS no_claim,
+    COUNT(s.sale_id) AS no_sales
+FROM warranty AS w
+RIGHT JOIN sales AS s 
+ON s.sale_id = w.sale_id
+JOIN products AS p
+ON p.product_id = s.product_id
+WHERE p.launch_date >= (CURRENT_DATE - INTERVAL 2 YEAR)
+GROUP BY p.product_name
+HAVING COUNT(w.claim_id) > 0;
+```
 
-11. Identify the least selling product in each country for each year based on total units sold.
-12. Calculate how many warranty claims were filed within 180 days of a product sale.
-13. Determine how many warranty claims were filed for products launched in the last two years.
-14. List the months in the last three years where sales exceeded 5,000 units in the USA.
-15. Identify the product category with the most warranty claims filed in the last two years.
+### 13.  List the months in the last 3 years where sales exceeded 5000 units from USA.
+```
+SELECT 
+    DATE_FORMAT(s.sale_date, '%m-%Y') AS month,
+    SUM(s.quantity) AS total_unit_sold
+FROM sales AS s
+JOIN stores AS st
+    ON s.store_id = st.store_id
+WHERE 
+    st.country = 'UK'
+    AND s.sale_date >= CURRENT_DATE - INTERVAL 3 YEAR
+GROUP BY month
+HAVING SUM(s.quantity) > 5000;
+```
 
-### Complex (5 Questions)
-
-16. Determine the percentage chance of receiving warranty claims after each purchase for each country.
-17. Analyze the year-by-year growth ratio for each store.
-18. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
-19. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
-20. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
-21. Analyze product sales trends over time, segmented into key periods: from launch to 6 months, 6-12 months, 12-18 months, and beyond 18 months.
+### 14. Which product category had the most warranty claims filed in the last 2 years?
+```
+SELECT 
+	c.category_name,
+	COUNT(w.claim_id) as total_claims
+FROM warranty as w
+LEFT JOIN
+sales as s
+ON w.sale_id = s.sale_id
+JOIN products as p
+ON p.product_id = s.product_id
+JOIN 
+category as c
+ON c.category_id = p.category_id
+WHERE 
+	w.claim_date >= CURRENT_DATE - INTERVAL '2 year'
+GROUP BY 1
+```
 
 ## Dataset
 
@@ -164,9 +227,3 @@ WHERE YEAR(claim_date) = 2020;
 
 ## Conclusion
 The Apple Retail Sales Data Analysis project showcases the power and versatility of SQL in deriving actionable insights from vast and complex datasets. By analyzing over 1 million rows of data, we have:
-
-Enhanced Understanding: Explored sales patterns, warranty claims, and product performance across global Apple stores.
-- **Key Insights:** Identified top-performing stores, best-selling days, and product categories with the highest warranty claims.
-- **Advanced Techniques:** Applied ranking, window functions, and subqueries to answer challenging business questions, demonstrating proficiency in handling real-world SQL scenarios.
-- **Strategic Recommendations:** Provided insights into customer preferences, product lifecycle performance, and warranty claim trends, aiding strategic decision-making.
-This project not only highlights the analytical potential of SQL but also underscores its critical role in supporting data-driven business strategies in the retail domain.
