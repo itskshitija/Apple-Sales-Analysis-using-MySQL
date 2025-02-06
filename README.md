@@ -11,8 +11,6 @@ SELECT
 GROUP BY country
 ORDER BY total_stores DESC;
 ```
-![image](https://github.com/user-attachments/assets/7cf0e4b0-4817-4a82-99d5-89368a0ad2e1)
-
 ### 2. What is the total number of units sold by each store?
 ```
 SELECT stores.store_name, SUM(sales.quantity) AS Total_Units_Sold
@@ -21,16 +19,12 @@ INNER JOIN stores ON sales.store_id = stores.store_id
 GROUP BY stores.store_name
 ORDER BY Total_Units_Sold DESC;
 ```
-![image](https://github.com/user-attachments/assets/5dbf5bb0-e1df-4d9b-aabb-f2671a76213c)
-
 ### 3. How many sales occurred in December 2023?
 ```
 SELECT COUNT(*) AS total_sales
 FROM sales
 WHERE YEAR(sale_date) = 2023 AND MONTH(sale_date) = 12;
 ```
-![image](https://github.com/user-attachments/assets/5a108498-88cd-4664-9356-8793c24fc5d6)
-
 ### 4. How many stores have never had a warranty claim filed against any of their products?
 ```
 SELECT COUNT(*) FROM stores
@@ -42,8 +36,6 @@ RIGHT JOIN warranty as w
 ON s.sale_id = w.sale_id
 );
 ```
-![image](https://github.com/user-attachments/assets/be2781be-7729-4403-a284-7b764a464a30)
-
 ### 5. What percentage of warranty claims are marked as "Warranty Void"?
 ```
 SELECT 
@@ -52,7 +44,6 @@ FROM
     (SELECT COUNT(*) as Total_claims FROM warranty) as t,
 	(SELECT COUNT(*) as "Warranty_Void_Claims" FROM warranty WHERE repair_status = "Warranty Void")as w;
 ```
-![image](https://github.com/user-attachments/assets/6188d43b-408b-4690-9419-818a5b1e70ff)
 
 ### 6. Which store had the highest total units sold in the last year?
 ```
@@ -64,8 +55,6 @@ GROUP BY st.store_name
 ORDER BY Total_Units_Sold DESC
 LIMIT 1;
 ```
-![image](https://github.com/user-attachments/assets/2a0e61ae-102a-44a6-b639-ef0e8680e5f6)
-
 ### 7. Count the number of unique products sold in the last year
 ```
 SELECT COUNT(DISTINCT product_name) AS Total_Products
@@ -73,8 +62,6 @@ from products as p
 INNER JOIN sales as s ON s.product_id = p.product_id
 WHERE sale_date >= (CURRENT_DATE - INTERVAL 1 year);
 ```
-![image](https://github.com/user-attachments/assets/dd3ec9e1-bb5c-41b8-88f7-cb20ffd8f456)
-
 ### 8. What is the average price of products in each category?
 ```
 SELECT c.category_id, c.category_name, avg(p.price) as average_price_of_products
@@ -83,16 +70,11 @@ INNER JOIN products as p ON c.category_id = p.category_id
 GROUP BY category_id, category_name
 ORDER BY average_price_of_products DESC;
 ```
-![image](https://github.com/user-attachments/assets/478a5d09-64bd-41b0-9618-041587b5a5f4)
-
 ### 9. How many warranty claims were filed in 2020?
 ```
 SELECT count(*) AS warranty_claim from warranty 
 WHERE YEAR(claim_date) = 2020;
 ```
-![image](https://github.com/user-attachments/assets/c475b890-907c-437b-94db-568f4b03fc17)
-
-
 ### 10. Identify each store and best selling day based on highest qty sold
 ```
 WITH RankedSales AS (
@@ -114,8 +96,6 @@ SELECT
 FROM RankedSales
 WHERE rank_val = 1;
 ```
-![image](https://github.com/user-attachments/assets/c74b9c48-4aeb-40e4-ad7e-fb42c77ffa78)
-
 ### 11.How many warranty claims were filed within 180 days of a product sale?
 ```
 SELECT 
@@ -125,8 +105,6 @@ INNER JOIN sales AS s
 ON s.sale_id = w.sale_id
 WHERE DATEDIFF(w.claim_date, s.sale_date) <= 180;
 ```
-![image](https://github.com/user-attachments/assets/564f0570-44dc-4bf8-b6fe-389dd3e06b1e)
-
 ### 12. How many warranty claims have been filed for products launched in the last two years?
 ```
 SELECT 
