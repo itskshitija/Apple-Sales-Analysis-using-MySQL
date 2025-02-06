@@ -1,4 +1,4 @@
-# SQL Project - Apple Retail Sales Data
+# MySQL Case Study- Apple Retail Sales Data Analysis
 
 ## Business Questions
 
